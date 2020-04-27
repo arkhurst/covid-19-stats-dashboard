@@ -14,30 +14,15 @@ import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
 
-let data2 = [
-  {
-    id:1,
-    value: 'Banana',
-  },
-  {
-    id:2,
-    value: 'Mango',
-  },
-  {
-    id:3,
-    value: 'Pear',
-  },
-];
-
 // Countries and flags
 const ItemList = props => {
 
   return (
     <View style={styles.listContainer}>
-      <View style={styles.items}>
-       <Image style={{width:40, height:40}} source={{uri : props.countryInfo.flag}} />
-        <Text style={{ marginLeft: 5, fontSize: 16 }}>{props.country}</Text>
-      </View>
+      <TouchableOpacity style={styles.items}>
+       <Image style={{width:40, height:40, borderRadius:20}} source={{uri : props.countryInfo.flag}} />
+        <Text style={{ marginLeft: 15, fontSize: 16, fontWeight:'600' }}>{props.country}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -53,7 +38,7 @@ const ItemList = props => {
         <TouchableOpacity style={styles.btn} onPress={cancel}>
           <Ionicons name="ios-close" size={30} />
         </TouchableOpacity>
-        <FlatList data={info} renderItem={obj => <ItemList {...obj.item} />} />
+        <FlatList data={info} renderItem={obj => <ItemList {...obj.item} />}  />
       </View>
     </Modal>
   );
@@ -67,7 +52,7 @@ const styles = StyleSheet.create({
   listContainer: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#c4c4c4',
-    height: 40,
+    height: 70,
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
