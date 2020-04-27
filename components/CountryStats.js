@@ -1,9 +1,15 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import Card from './Card';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function CountryStats() {
+   function CountryStats(props) {
+
+    // const { data } = props
+    // console.log(data.globalTotal)
+
   return (
     <Card style={styles.container}>
       <View style={styles.countryStatsContainer}>
@@ -97,3 +103,40 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
 });
+
+const ListingsQuery = gql `
+ query {
+  country(name:"Malaysia") {
+      country
+      countryInfo {
+          _id
+          lat
+          long
+          flag
+          iso2
+          iso3
+      }
+      continent
+      result {
+          tests
+          cases
+          todayCases
+          deaths
+          todayDeaths
+          recovered
+          active
+          critical
+          casesPerOneMillion
+          deathsPerOneMillion
+          testsPerOneMillion
+          updated
+      }
+  }
+}
+
+
+`
+
+const CountryStatsWrapper = graphql(ListingsQuery)(CountryStats)
+
+export default CountryStatsWrapper;

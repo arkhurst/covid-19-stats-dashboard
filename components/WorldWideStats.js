@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import Card from './Card';
 import { Fontisto } from '@expo/vector-icons';
 
-export default function WorldwideStats() {
+   function WorldwideStats(props) {
+
+    const { data } = props;
+    const [realTime, setRealTime] = useState({data: data.globalTotal})
+   
+   function UpdateData(){
+
+   }
+  
   return (
     <Card style={styles.container}>
       <View style={styles.worldStatsContainer}>
@@ -15,15 +25,15 @@ export default function WorldwideStats() {
       <View style={styles.statsItemsContainer}>
         <View style={styles.statsItems}>
           <Text style={{ color: '#4847d6', fontWeight: '500' }}>Confirmed</Text>
-          <Text style={styles.numbers}>2,999,9999</Text>
+          <Text style={styles.numbers}>0</Text>
         </View>
         <View style={styles.statsItems}>
           <Text style={{ color: '#62975f', fontWeight: '500' }}>Recovered</Text>
-          <Text style={styles.numbers}>878,999</Text>
+          <Text style={styles.numbers}>0</Text>
         </View>
         <View style={[styles.statsItems, styles.lastItem]}>
           <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
-          <Text style={styles.numbers}>206,992</Text>
+          <Text style={styles.numbers}>0</Text>
         </View>
       </View>
     </Card>
@@ -59,3 +69,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+const ListingsQuery = gql `
+query{
+  globalTotal {
+      affectedCountries
+      tests
+      cases
+      todayCases
+      deaths
+      todayDeaths
+      recovered
+      active
+      critical
+      casesPerOneMillion
+      deathsPerOneMillion
+      testsPerOneMillion
+      updated
+  }
+}
+
+`
+
+const WorldwideWrapper = graphql(ListingsQuery)(WorldwideStats)
+export default WorldwideWrapper;

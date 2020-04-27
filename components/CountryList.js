@@ -5,44 +5,55 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Button,
+  Image,
   TouchableOpacity,
 } from 'react-native';
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
-let data = [
+
+let data2 = [
   {
+    id:1,
     value: 'Banana',
   },
   {
+    id:2,
     value: 'Mango',
   },
   {
+    id:3,
     value: 'Pear',
   },
 ];
 
 // Countries and flags
 const ItemList = props => {
+
   return (
     <View style={styles.listContainer}>
       <View style={styles.items}>
-        <Text>Image</Text>
-        <Text style={{ marginLeft: 5, fontSize: 16 }}>{props.value}</Text>
+       <Image style={{width:40, height:40}} source={{uri : props.countryInfo.flag}} />
+        <Text style={{ marginLeft: 5, fontSize: 16 }}>{props.country}</Text>
       </View>
     </View>
   );
 };
 
-export default function CountryList({ visible, cancel }) {
+ function CountryList(props) {
+
+  const {data, visible, cancel } = props
+
+  const info = data.countries
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.centeredView}>
         <TouchableOpacity style={styles.btn} onPress={cancel}>
           <Ionicons name="ios-close" size={30} />
         </TouchableOpacity>
-        <FlatList data={data} renderItem={obj => <ItemList {...obj.item} />} />
+        <FlatList data={info} renderItem={obj => <ItemList {...obj.item} />} />
       </View>
     </Modal>
   );
@@ -65,5 +76,43 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
+    alignItems:'center',
+    
   },
 });
+
+const CountryQuery = gql `
+ query {
+  countries {
+      country
+      countryInfo {
+          _id
+          lat
+          long
+          flag
+          iso3
+          iso2
+      }
+      continent
+      result {
+          tests
+          cases
+          todayCases
+          deaths
+          todayDeaths
+          recovered
+          active
+          critical
+          casesPerOneMillion
+          deathsPerOneMillion
+          testsPerOneMillion
+          updated
+      }
+  }
+}
+
+
+`
+
+const CountryListWrapper = graphql(CountryQuery)(CountryList)
+export default  CountryListWrapper;
