@@ -3,12 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import Card from './Card';
 import { Ionicons, Fontisto } from '@expo/vector-icons';
 
-export default function(){
+export default function WorldwideStats(){
     return(
         <Card style={styles.container}>
             <View style={styles.worldStatsContainer}>
                 <Fontisto name="world-o" size={26} color='blue' />
-                <Text style={{marginLeft:10, fontSize:17, marginTop:6}}>Worldwide Statistics</Text>
+                <Text style={{marginLeft:5, fontSize:17, marginTop:6}}>Worldwide Statistics</Text>
             </View>
             <View style={styles.statsItemsContainer}>
                 <View style={styles.statsItems}>

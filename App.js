@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import WorldWideStats from './components/WorldWideStats';
+import CountryStats from './components/CountryStats';
 
 export default function App() {
   return (
@@ -15,6 +16,10 @@ export default function App() {
       </View>
     <View>
 
+    </View>
+    <CountryStats />
+    <View style={styles.dateContainer}>
+       <Text style={{color:'grey'}}>Last Updated:Mon Apr 27 2020</Text>
     </View>
     </View>
   );
@@ -37,5 +42,9 @@ const styles = StyleSheet.create({
   },
   selectCountryContainer:{
     paddingHorizontal:20
+  },
+  dateContainer:{
+    alignSelf:'flex-end',
+    paddingRight:20
   }
 });
