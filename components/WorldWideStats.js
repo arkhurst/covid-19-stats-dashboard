@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Card from './Card';
 import { Fontisto } from '@expo/vector-icons';
+import numeral from 'numeral';
 
 function WorldwideStats(props) {
   const { loading: loadData, data: realData, error } = useQuery(ListingsQuery);
@@ -27,19 +28,19 @@ function WorldwideStats(props) {
         <View style={styles.statsItems}>
           <Text style={{ color: '#4847d6', fontWeight: '500' }}>Confirmed</Text>
           <Text style={styles.numbers}>
-            {realData?.globalTotal?.cases || 'N/A'}
+            {numeral(realData?.globalTotal?.cases).format('0,0') || 'N/A'}
           </Text>
         </View>
         <View style={styles.statsItems}>
           <Text style={{ color: '#62975f', fontWeight: '500' }}>Recovered</Text>
           <Text style={styles.numbers}>
-            {realData?.globalTotal?.recovered || 'N/A'}
+            {numeral(realData?.globalTotal?.recovered).format('0,0') || 'N/A'}
           </Text>
         </View>
         <View style={[styles.statsItems, styles.lastItem]}>
           <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
           <Text style={styles.numbers}>
-            {realData?.globalTotal?.deaths || 'N/A'}
+            {numeral(realData?.globalTotal?.deaths).format('0,0') || 'N/A'}
           </Text>
         </View>
       </View>

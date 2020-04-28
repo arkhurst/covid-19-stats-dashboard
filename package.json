@@ -15,6 +15,7 @@
     "expo": "~37.0.3",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
+    "numeral": "^2.0.6",
     "react": "~16.9.0",
     "react-apollo": "^3.1.5",
     "react-dom": "~16.9.0",

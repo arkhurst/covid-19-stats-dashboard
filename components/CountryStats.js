@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Card from './Card';
 import { Ionicons } from '@expo/vector-icons';
+import numeral from 'numeral';
 
 function CountryStats(props) {
   const { country } = props;
@@ -23,14 +24,14 @@ function CountryStats(props) {
               Confirmed
             </Text>
             <Text style={styles.numbers}>
-              {country?.result?.cases || 'N/A'}
+              {numeral(country?.result?.cases).format('0,0') || 'N/A'}
             </Text>
           </View>
           {/* Active cases */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'gold', fontWeight: '600' }}>Active</Text>
             <Text style={styles.numbers}>
-              {country?.result?.active || 'N/A'}
+              {numeral(country?.result?.active).format('0,0') || 'N/A'}
             </Text>
           </View>
         </View>
@@ -41,14 +42,14 @@ function CountryStats(props) {
               Recovered
             </Text>
             <Text style={styles.numbers}>
-              {country?.result?.recovered || 'N/A'}
+              {numeral(country?.result?.recovered).format('0,0') || 'N/A'}
             </Text>
           </View>
           {/* Critical cases */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'tomato', fontWeight: '600' }}>Critical</Text>
             <Text style={styles.numbers}>
-              {country?.result?.critical || 'N/A'}
+              {numeral(country?.result?.critical).format('0,0') || 'N/A'}
             </Text>
           </View>
         </View>
@@ -57,14 +58,14 @@ function CountryStats(props) {
           <View style={styles.statsItems}>
             <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
             <Text style={styles.numbers}>
-              {country?.result?.deaths || 'N/A'}
+              {numeral(country?.result?.deaths).format('0,0') || 'N/A'}
             </Text>
           </View>
           {/* Tests */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'teal', fontWeight: '600' }}>Tests</Text>
             <Text style={styles.numbers}>
-              {country?.result?.tests || 'N/A'}
+              {numeral(country?.result?.tests).format('0,0') || 'N/A'}
             </Text>
           </View>
         </View>
