@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {graphql} from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Card from './Card';
 import { Fontisto } from '@expo/vector-icons';
 
-
 function WorldwideStats(props) {
+  const { loading: loadData, data: realData, error } = useQuery(ListingsQuery);
 
-   const { loading: loadData, data: realData, error} = useQuery(ListingsQuery)
-   
   //  if (realData){
   //   console.log(realData);
   // }
@@ -28,15 +26,21 @@ function WorldwideStats(props) {
       <View style={styles.statsItemsContainer}>
         <View style={styles.statsItems}>
           <Text style={{ color: '#4847d6', fontWeight: '500' }}>Confirmed</Text>
-          <Text style={styles.numbers}>{realData?.globalTotal?.cases || 'N/A'}</Text>
+          <Text style={styles.numbers}>
+            {realData?.globalTotal?.cases || 'N/A'}
+          </Text>
         </View>
         <View style={styles.statsItems}>
           <Text style={{ color: '#62975f', fontWeight: '500' }}>Recovered</Text>
-          <Text style={styles.numbers}>{realData?.globalTotal?.recovered || 'N/A'}</Text>
+          <Text style={styles.numbers}>
+            {realData?.globalTotal?.recovered || 'N/A'}
+          </Text>
         </View>
         <View style={[styles.statsItems, styles.lastItem]}>
           <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
-          <Text style={styles.numbers}>{realData?.globalTotal?.deaths || 'N/A'}</Text>
+          <Text style={styles.numbers}>
+            {realData?.globalTotal?.deaths || 'N/A'}
+          </Text>
         </View>
       </View>
     </Card>
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ListingsQuery = gql `
+const ListingsQuery = gql`
 query{
   globalTotal {
       affectedCountries
@@ -92,7 +96,7 @@ query{
   }
 }
 
-`
+`;
 
-const WorldwideWrapper = graphql(ListingsQuery)(WorldwideStats)
+const WorldwideWrapper = graphql(ListingsQuery)(WorldwideStats);
 export default WorldwideWrapper;

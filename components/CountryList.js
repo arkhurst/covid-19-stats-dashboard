@@ -13,24 +13,25 @@ import {
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
-
 // Countries and flags
 const ItemList = props => {
-
   return (
     <View style={styles.listContainer}>
       <TouchableOpacity onPress={props.selected} style={styles.items}>
-       <Image style={{width:40, height:40, borderRadius:20}} source={{uri : props.countryInfo.flag}} />
-        <Text style={{ marginLeft: 15, fontSize: 16, fontWeight:'600' }}>{props.country}</Text>
+        <Image
+          style={{ width: 40, height: 40, borderRadius: 20 }}
+          source={{ uri: props.countryInfo.flag }}
+        />
+        <Text style={{ marginLeft: 15, fontSize: 16, fontWeight: '600' }}>
+          {props.country}
+        </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
- function CountryList(props) {
-
-  const {data, visible, cancel, select,loading } = props
-
+function CountryList(props) {
+  const { data, visible, cancel, select, loading } = props;
 
   return (
     <Modal visible={visible} animationType="slide">
@@ -39,29 +40,29 @@ const ItemList = props => {
           <Ionicons name="ios-close" size={30} />
         </TouchableOpacity>
         {loading ? (
-          <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
-               <ActivityIndicator size="large" />
-           </View> 
-      
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" />
+          </View>
         ) : (
           <View>
-                   {data &&(
- <FlatList 
- data={data.countries} 
- renderItem={obj => <ItemList {...obj.item} 
- selected={(data) => {
-  select(data)
-  cancel()
-}}/>
-}   
-
-keyExtractor={(item) => item.id}
- />
+            {data && (
+              <FlatList
+                data={data.countries}
+                renderItem={obj => (
+                  <ItemList
+                    {...obj.item}
+                    selected={data => {
+                      select(data);
+                      cancel();
+                    }}
+                  />
+                )}
+                keyExtractor={item => item.id}
+              />
+            )}
+          </View>
         )}
-           </View> 
-        )}
- 
-       
       </View>
     </Modal>
   );
@@ -84,11 +85,8 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
-    alignItems:'center',
-    
+    alignItems: 'center',
   },
 });
 
-
-
-export default  CountryList;
+export default CountryList;

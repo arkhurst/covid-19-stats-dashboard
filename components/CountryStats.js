@@ -3,10 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import Card from './Card';
 import { Ionicons } from '@expo/vector-icons';
 
-   function CountryStats(props) {
-   
-    const { country } = props
-    console.log(country)
+function CountryStats(props) {
+  const { country } = props;
+  console.log(country);
 
   return (
     <Card style={styles.overCont}>
@@ -23,12 +22,16 @@ import { Ionicons } from '@expo/vector-icons';
             <Text style={{ color: '#4847d6', fontWeight: '500' }}>
               Confirmed
             </Text>
-            <Text style={styles.numbers}>{country?.result?.cases || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.cases || 'N/A'}
+            </Text>
           </View>
           {/* Active cases */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'gold', fontWeight: '600' }}>Active</Text>
-            <Text style={styles.numbers}>{country?.result?.active || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.active || 'N/A'}
+            </Text>
           </View>
         </View>
         <View style={styles.border}>
@@ -37,24 +40,32 @@ import { Ionicons } from '@expo/vector-icons';
             <Text style={{ color: '#62975f', fontWeight: '500' }}>
               Recovered
             </Text>
-            <Text style={styles.numbers}>{country?.result?.recovered || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.recovered || 'N/A'}
+            </Text>
           </View>
           {/* Critical cases */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'tomato', fontWeight: '600' }}>Critical</Text>
-            <Text style={styles.numbers}>{country?.result?.critical || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.critical || 'N/A'}
+            </Text>
           </View>
         </View>
         <View style={styles.lastItem}>
           {/* Deaths */}
           <View style={styles.statsItems}>
             <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
-            <Text style={styles.numbers}>{country?.result?.deaths || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.deaths || 'N/A'}
+            </Text>
           </View>
           {/* Tests */}
           <View style={[styles.statsItems, styles.spacing]}>
             <Text style={{ color: 'teal', fontWeight: '600' }}>Tests</Text>
-            <Text style={styles.numbers}>{country?.result?.tests || "N/A"}</Text>
+            <Text style={styles.numbers}>
+              {country?.result?.tests || 'N/A'}
+            </Text>
           </View>
         </View>
       </View>
@@ -101,9 +112,5 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
 });
-
-
-
-
 
 export default CountryStats;
