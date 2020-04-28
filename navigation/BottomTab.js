@@ -31,10 +31,10 @@ export default function Tab() {
               }}
             />
             <BottomTab.Screen 
-              name="News"
+              name="Info"
               component={News}
               options={{
-                tabBarLabel: 'Feed',
+                tabBarLabel: 'Info',
                 tabBarIcon: ({ focused }) => (
                   <FontAwesome name="feed" color={focused ? 'black' :'grey'}size={24} />
                 ),
