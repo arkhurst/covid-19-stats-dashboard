@@ -1,6 +1,8 @@
 # covid-19-stats-dashboard
 Real time data and information on the current state of Novel Covid-19
 
+![image2](https://user-images.githubusercontent.com/42737537/80545612-ba865480-89ab-11ea-9b99-10884fd3f549.jpg)
+
 # stats
 * expo
 * apollo client
