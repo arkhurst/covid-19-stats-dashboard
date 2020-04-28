@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { graphql } from 'react-apollo';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import moment from 'moment';
 import CountryList from './CountryList';
 import CountryStats from './CountryStats';
 
@@ -39,7 +40,7 @@ export default function DropdownComponent() {
     },
   });
 
-  console.log(data);
+  // console.log(data);
   const { loading, data } = useQuery(CountryQuery);
 
   const cancel = () => {
@@ -52,6 +53,7 @@ export default function DropdownComponent() {
   const handleSelectingCountry = data => {
     setCountry(data);
   };
+  console.log(data)
   return (
     <View>
       <TouchableWithoutFeedback onPress={openModal}>
@@ -60,7 +62,7 @@ export default function DropdownComponent() {
             <View style={styles.countryContainer}>
               <Image
                 source={{
-                  uri: country.countryInfo.flag,
+                  uri: country?.countryInfo?.flag||'N/A',
                 }}
                 style={{ height: 30, width: 30 }}
                 resizeMode={'contain'}
@@ -83,6 +85,10 @@ export default function DropdownComponent() {
         </View>
       </TouchableWithoutFeedback>
       <CountryStats country={country} />
+      
+      <View style={styles.dateContainer}>
+          <Text style={{ color: 'grey' }}>Last Updated:{moment(country?.result?.updated).format('ddd,MMM DD YYYY')}</Text>
+        </View>
     </View>
   );
 }
@@ -95,6 +101,12 @@ const styles = StyleSheet.create({
   },
   countryContainer: {
     flexDirection: 'row',
+  },
+  dateContainer: {
+    alignSelf: 'flex-end',
+    paddingRight: 20,
+    paddingTop: 10,
+    marginBottom: 50,
   },
 });
 

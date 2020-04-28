@@ -65,9 +65,6 @@ export default function Home() {
           <DropdownComponent />
         </View>
 
-        <View style={styles.dateContainer}>
-          <Text style={{ color: 'grey' }}>Last Updated:Mon Apr 27 2020</Text>
-        </View>
       </ScrollView>
     </React.Fragment>
   );
@@ -112,10 +109,5 @@ const styles = StyleSheet.create({
   selectCountryContainer: {
     paddingHorizontal: 20,
   },
-  dateContainer: {
-    alignSelf: 'flex-end',
-    paddingRight: 20,
-    paddingTop: 10,
-    marginBottom: 50,
-  },
+
 });

@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 function CountryStats(props) {
   const { country } = props;
-  console.log(country);
+
 
   return (
     <Card style={styles.overCont}>
