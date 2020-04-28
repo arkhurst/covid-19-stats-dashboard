@@ -7,9 +7,9 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import {graphql} from 'react-apollo';
-import gql from 'graphql-tag';
+
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -19,7 +19,7 @@ const ItemList = props => {
 
   return (
     <View style={styles.listContainer}>
-      <TouchableOpacity style={styles.items}>
+      <TouchableOpacity onPress={props.selected} style={styles.items}>
        <Image style={{width:40, height:40, borderRadius:20}} source={{uri : props.countryInfo.flag}} />
         <Text style={{ marginLeft: 15, fontSize: 16, fontWeight:'600' }}>{props.country}</Text>
       </TouchableOpacity>
@@ -29,16 +29,39 @@ const ItemList = props => {
 
  function CountryList(props) {
 
-  const {data, visible, cancel } = props
+  const {data, visible, cancel, select,loading } = props
 
-  const info = data.countries
+
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.centeredView}>
         <TouchableOpacity style={styles.btn} onPress={cancel}>
           <Ionicons name="ios-close" size={30} />
         </TouchableOpacity>
-        <FlatList data={info} renderItem={obj => <ItemList {...obj.item} />}  />
+        {loading ? (
+          <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+               <ActivityIndicator size="large" />
+           </View> 
+      
+        ) : (
+          <View>
+                   {data &&(
+ <FlatList 
+ data={data.countries} 
+ renderItem={obj => <ItemList {...obj.item} 
+ selected={(data) => {
+  select(data)
+  cancel()
+}}/>
+}   
+
+keyExtractor={(item) => item.id}
+ />
+        )}
+           </View> 
+        )}
+ 
+       
       </View>
     </Modal>
   );
@@ -66,38 +89,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const CountryQuery = gql `
- query {
-  countries {
-      country
-      countryInfo {
-          _id
-          lat
-          long
-          flag
-          iso3
-          iso2
-      }
-      continent
-      result {
-          tests
-          cases
-          todayCases
-          deaths
-          todayDeaths
-          recovered
-          active
-          critical
-          casesPerOneMillion
-          deathsPerOneMillion
-          testsPerOneMillion
-          updated
-      }
-  }
-}
 
 
-`
-
-const CountryListWrapper = graphql(CountryQuery)(CountryList)
-export default  CountryListWrapper;
+export default  CountryList;

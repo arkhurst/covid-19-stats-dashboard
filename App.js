@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import { ApolloProvider } from 'react-apollo';
@@ -16,6 +16,8 @@ const apolloClient = new ApolloClient({
 })
 
 export default function App() {
+
+
   return (
     <ApolloProvider client={apolloClient}>
     <View style={styles.container}>
@@ -29,7 +31,7 @@ export default function App() {
       <View style={styles.dropDown}>
         <DropdownComponent />
       </View>
-      <CountryStats />
+    
       <View style={styles.dateContainer}>
         <Text style={{ color: 'grey' }}>Last Updated:Mon Apr 27 2020</Text>
       </View>
@@ -60,8 +62,5 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     paddingRight: 20,
     paddingTop: 10,
-  },
-  dropDown: {
-    padding: 10,
-  },
+  }
 });

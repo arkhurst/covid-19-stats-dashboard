@@ -2,25 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 import Card from './Card';
 import { Fontisto } from '@expo/vector-icons';
 
+
 function WorldwideStats(props) {
 
-    const [ realTime, setRealTime] = useState({})
-    const {data } = props;
- 
-useEffect(() => {
-  requestData()
-}, [])
-   function requestData(){
-      setRealTime({
-          ...data.globalTotal
-      })
-   }
-
-   console.log(realTime)
-  
+   const { loading: loadData, data: realData, error} = useQuery(ListingsQuery)
+   
+  //  if (realData){
+  //   console.log(realData);
+  // }
+  // if (error){
+  //   console.log(error);
+  // }
   return (
     <Card style={styles.container}>
       <View style={styles.worldStatsContainer}>
@@ -32,15 +28,15 @@ useEffect(() => {
       <View style={styles.statsItemsContainer}>
         <View style={styles.statsItems}>
           <Text style={{ color: '#4847d6', fontWeight: '500' }}>Confirmed</Text>
-          <Text style={styles.numbers}>{realTime.cases}</Text>
+          <Text style={styles.numbers}>{realData?.globalTotal?.cases || 'N/A'}</Text>
         </View>
         <View style={styles.statsItems}>
           <Text style={{ color: '#62975f', fontWeight: '500' }}>Recovered</Text>
-          <Text style={styles.numbers}>{realTime.recovered}</Text>
+          <Text style={styles.numbers}>{realData?.globalTotal?.recovered || 'N/A'}</Text>
         </View>
         <View style={[styles.statsItems, styles.lastItem]}>
           <Text style={{ color: 'tomato', fontWeight: '500' }}>Deaths</Text>
-          <Text style={styles.numbers}>{realTime.deaths}</Text>
+          <Text style={styles.numbers}>{realData?.globalTotal?.deaths || 'N/A'}</Text>
         </View>
       </View>
     </Card>
