@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 const ItemList = props => {
   return (
     <View style={styles.listContainer}>
-      <TouchableOpacity onPress={props.selected} style={styles.items}>
+      <TouchableOpacity onPress={() => props.selected(props.data)} style={styles.items}>
         <Image
           style={{ width: 40, height: 40, borderRadius: 20 }}
           source={{ uri: props.countryInfo.flag }}
@@ -52,6 +52,7 @@ function CountryList(props) {
                 renderItem={obj => (
                   <ItemList
                     {...obj.item}
+                    data={obj.item}
                     selected={data => {
                       select(data);
                       cancel();
